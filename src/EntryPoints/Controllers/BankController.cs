@@ -46,5 +46,21 @@ namespace EntryPoints.Controllers
             }
         }
 
+        [HttpPost("DecryptRequest")]
+        [Consumes("application/xml")]
+        public  async Task<IActionResult> DecryptRequest()
+        {
+            using (var reader = new StreamReader(Request.Body))
+            {
+                var request = await reader.ReadToEndAsync();
+
+                var xsdFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Schemas", "BalanceResponse.xsd");
+                XmlValidator.Validate(request, xsdFilePath);
+
+                var BalanceResponse = await _processAccountRequest.DecryptRequestXml(request);
+
+                return Ok(BalanceResponse);
+            }
+        }
     }
 }

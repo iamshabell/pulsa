@@ -1,0 +1,13 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="BalanceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="EncryptedAccountNumber" type="xs:string"/>
+                <xs:element name="EncryptedBalance" type="xs:string"/>
+                <xs:element name="EncryptedAccountProvider" type="xs:string"/>
+                <xs:element name="Status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

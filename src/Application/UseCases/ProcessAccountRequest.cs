@@ -41,5 +41,21 @@ namespace Application.UseCases
 
             return _xmlSerializer.Serialize(response);
         }
+        public  async Task<BalanceResponseDto>  DecryptRequestXml(string xmlRequest)
+        {
+            var request = _xmlSerializer.Deserialize<BalanceResponseDto>(xmlRequest);
+
+            var accountNumber = await Task.Run(() => _encryptionService.Decrypt(new EncryptedData(request.EncryptedAccountNumber)));
+            var balance = await Task.Run(() => _encryptionService.Decrypt(new EncryptedData(request.EncryptedBalance)));
+            var accountProvider = await Task.Run(() => _encryptionService.Decrypt(new EncryptedData(request.EncryptedAccountProvider)));
+
+            return new BalanceResponseDto
+            {
+                EncryptedAccountNumber = accountNumber,
+                EncryptedBalance = balance,
+                EncryptedAccountProvider = accountProvider,
+                Status = "Success"
+            };
+        }
     }
 }
