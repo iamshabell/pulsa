@@ -13,11 +13,11 @@ namespace Application.UseCases
             _encryptionService = encryptionService;
         }
 
-        public Account Process(string name, string email, string password)
+        public string Process(Account account)
         {
-            var encryptedPassword = _encryptionService.Encrypt(password);
-            
-            return $"Processed request for account: {encryptedData.Data}";
+            var encryptedData = _encryptionService.Encrypt(account.AccountNumber);
+
+            return $"Processed request for account: {account.AccountNumber}";
         }
     }
 }
