@@ -2,9 +2,9 @@ namespace Core.ValueObjects
 {
     public class EncryptedData
     {
-        public EncryptedData(string Data)
+        public EncryptedData(string data)
         {
-            Data = Data;
+            this.Data = data;
         }
 
         public string Data { get; private set; }
