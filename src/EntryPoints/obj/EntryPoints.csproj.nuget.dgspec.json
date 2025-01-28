@@ -28,6 +28,9 @@
             "projectReferences": {
               "/Users/drakon/development/opensource/pulsa/src/Core/Core.csproj": {
                 "projectPath": "/Users/drakon/development/opensource/pulsa/src/Core/Core.csproj"
+              },
+              "/Users/drakon/development/opensource/pulsa/src/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/drakon/development/opensource/pulsa/src/Infrastructure/Infrastructure.csproj"
               }
             }
           }

@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Infrastructure.Services;
+using Infrastructure.Serialization;
 using Application.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ if (string.IsNullOrEmpty(encryptionKey))
 }
 
 builder.Services.AddSingleton<IEncryptionService>(new EncryptionService(encryptionKey));
+builder.Services.AddSingleton<XmlSerializer>();
 builder.Services.AddScoped<ProcessAccountRequest>();
 
 var app = builder.Build();
