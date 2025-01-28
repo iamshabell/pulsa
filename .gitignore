@@ -1,0 +1,49 @@
+
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore user-specific files
+.vs/
+.idea/
+.vscode/
+
+# Ignore ASP.NET Core development certificates
+# Windows
+aspnetcore/
+# macOS/Linux
+# .vs2019/
+
+# Ignore user secrets (for local development)
+secrets/
+
+# Ignore .NET Core tool cache
+.dotnet/
+
+# Ignore logs
+*.log
+
+# Ignore npm packages (if you have a frontend part of your project)
+node_modules/
+
+# Ignore JetBrains Rider project files
+.idea/
+
+# Ignore configuration for Visual Studio for Mac
+.vscode/
+
+# Ignore Visual Studio Code specific files
+.vscode/
+
+# Ignore backup files
+*~
+*.bak
+
+# Ignore global tool .NET binaries
+global-tools/
+
+# Ignore JetBrains ReSharper folders
+_ReSharper*/
+
+# Ignore the publish folder
+publish/
