@@ -40,24 +40,47 @@ namespace Infrastructure.Services
 
         public string Decrypt(EncryptedData cipherText)
         {
-            using (Aes aes = Aes.Create())
+            try
             {
-                aes.Key = Encoding.UTF8.GetBytes(_key);
-                aes.IV = new byte[16];
-
-                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(cipherText.Data)))
+                if (IsBase64String(cipherText.Data))
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                    using (Aes aes = Aes.Create())
                     {
-                        using (StreamReader sr = new StreamReader(cs))
+                        aes.Key = Encoding.UTF8.GetBytes(_key);
+                        aes.IV = new byte[16]; 
+
+                        ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                        using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(cipherText.Data)))
                         {
-                            return sr.ReadToEnd();
+                            using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                            {
+                                using (StreamReader sr = new StreamReader(cs))
+                                {
+                                    return sr.ReadToEnd(); 
+                                }
+                            }
                         }
                     }
                 }
+                else
+                {
+                    throw new FormatException("Invalid Base64 string.");
+                }
             }
+            catch (FormatException ex)
+            {
+                throw new InvalidDataException("The encrypted data is not a valid Base64 string.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error during decryption.", ex);
+            }
+        }
+        private bool IsBase64String(string s)
+        {
+            Span<byte> buffer = new Span<byte>(new byte[s.Length * 3 / 4]);
+            return Convert.TryFromBase64String(s, buffer, out int bytesParsed) && s.Length % 4 == 0;
         }
 
         private static byte[] EnsureKeySize(string key, int size)
